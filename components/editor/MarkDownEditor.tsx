@@ -28,7 +28,7 @@ const MarkdownEditor = () => {
         {formatButtons.map(btn => (
           <button
             key={btn.syntax}
-            className="px-2 cursor-pointer bg-[#545454b0] text-white rounded hover:bg-[#545454]"
+            className="px-2 cursor-pointer bg-[#545454b0] text-white rounded-sm hover:bg-[#545454]"
             onClick={() => insertSyntax(btn.syntax)}
             title={btn.title}
           >
