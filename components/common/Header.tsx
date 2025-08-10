@@ -1,7 +1,7 @@
 // components/Header.jsx
 
 const Header = () => (
-  <header className="w-full flex justify-center mt-4">
+  <header className="w-full flex justify-center">
     <div
       className="
       bg-[#292535] rounded-full flex items-center

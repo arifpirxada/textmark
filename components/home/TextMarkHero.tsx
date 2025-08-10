@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const TextMarkHero = () => {
   return (
-    <section className=" min-h-screen flex items-center">
+    <section className=" min-h-screen flex items-center mt-8 lg:mt-0">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           

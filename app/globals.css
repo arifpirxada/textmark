@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
 body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #000;
+}
+
+.mark-gradient {
     background: linear-gradient(180deg, #352b54 16%, #5F103F 84%);
     background-repeat: no-repeat;
     min-height: 100vh;
