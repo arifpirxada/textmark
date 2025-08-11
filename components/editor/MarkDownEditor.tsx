@@ -6,7 +6,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useIndexedDB } from '@/hooks/useIndexedDB';
 
-const MarkdownEditor = () => {
+const MarkdownEditor = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const [markdown, setMarkdown] = useState('');
 
   const formatButtons = [
@@ -32,17 +32,25 @@ const MarkdownEditor = () => {
 
   return (
     <div className="h-screen flex flex-col">
-      <header className="flex justify-end gap-2 px-3 py-1 bg-black border-b border-[#8080804d]">
-        { formatButtons.map(btn => (
-          <button
-            key={ btn.syntax }
-            className="px-2 cursor-pointer bg-[#545454b0] text-white rounded-sm hover:bg-[#545454]"
-            onClick={ () => insertSyntax(btn.syntax) }
-            title={ btn.title }
-          >
-            { btn.name }
-          </button>
-        )) }
+      <header className="flex gap-2 px-3 py-2 rounded mb-2 bg-[#0000006b] border-b">
+        <button onClick={ toggleSidebar } className="inline-flex cursor-pointer items-center p-2 justify-center text-sm text-gray-500 rounded-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+          <span className="sr-only">Open main menu</span>
+          <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+          </svg>
+        </button>
+        <div className='ml-auto flex gap-2'>
+          { formatButtons.map(btn => (
+            <button
+              key={ btn.syntax }
+              className="px-2 cursor-pointer bg-[#545454b0] text-white rounded-sm hover:bg-[#545454]"
+              onClick={ () => insertSyntax(btn.syntax) }
+              title={ btn.title }
+            >
+              { btn.name }
+            </button>
+          )) }
+        </div>
       </header>
 
       <div className="flex flex-1">
