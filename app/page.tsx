@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -16,15 +16,15 @@ export default function Home() {
   useEffect(() => {
     const sidebarState = localStorage.getItem("sidebarState");
 
-    if(sidebarState) {
+    if (sidebarState && window.innerWidth > 768) {
       setSidebarOpen(JSON.parse(sidebarState));
     }
   }, [])
 
   return (
     <>
-      <FolderSidebar sidebarOpen={sidebarOpen}>
-        <MarkdownEditor toggleSidebar={toggleSidebar} />
+      <FolderSidebar sidebarOpen={ sidebarOpen } toggleSidebar={ toggleSidebar }>
+        <MarkdownEditor toggleSidebar={ toggleSidebar } />
       </FolderSidebar>
     </>
   );
