@@ -26,6 +26,21 @@ const MarkdownEditor = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
 
   useEffect(() => {
     if (isDBReady) {
+      // addFolder({ id: 'folder-1', name: 'Folder 1', parentId: null, path: 'Folder 1' });
+      // addFolder({ id: 'folder-2', name: 'Folder 2', parentId: null, path: 'Folder 2' });
+      // addFolder({ id: 'folder-2-1', name: 'Folder 2-1', parentId: 'folder-2', path: 'Folder 2/Folder 2-1' });
+      // addFolder({ id: 'folder-2-2', name: 'Folder 2-2', parentId: 'folder-2', path: 'Folder 2/Folder 2-2' });
+      // addFolder({ id: 'folder-3', name: 'Folder 3', parentId: null, path: 'Folder 3' });
+      // addFolder({ id: 'folder-3-1', name: 'Folder 3-1', parentId: 'folder-3', path: 'Folder 3/Folder 3-1' });
+      // addFolder({ id: 'folder-3-2', name: 'Folder 3-2', parentId: 'folder-3', path: 'Folder 3/Folder 3-2' });
+      // addFolder({ id: 'folder-3-3', name: 'Folder 3-3', parentId: 'folder-3', path: 'Folder 3/Folder 3-3' });
+      // addFolder({ id: 'folder-4', name: 'Folder 4', parentId: null, path: 'Folder 4' });
+
+      // addNote({ id: 'note-1', title: 'Note 1', content: 'Content for Note 1', folderId: 'folder-1', tags: ['tag1', 'tag2'] });
+      // addNote({ id: 'note-2', title: 'Note 2', content: 'Content for Note 4', folderId: 'folder-1', tags: ['tag4'] });
+      // addNote({ id: 'note-3', title: 'Note 3', content: 'Content for Note 2', folderId: 'folder-2', tags: ['tag2', 'tag3'] });
+      // addNote({ id: 'note-4', title: 'Note 4', content: 'Content for Note 3', folderId: 'folder-2-1', tags: ['tag1', 'tag3'] });
+
       loadData();
     }
   }, [isDBReady]);
