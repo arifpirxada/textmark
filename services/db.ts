@@ -51,7 +51,8 @@ class DatabaseService {
 
   async getAllFolders(): Promise<Folder[]> {
     const db = await this.initDB();
-    return await db.getAll("folders");
+    const folders = await db.getAll("folders");
+    return folders.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   async updateFolder(folder: Folder): Promise<string> {
@@ -61,6 +62,19 @@ class DatabaseService {
 
   async deleteFolder(id: string): Promise<void> {
     const db = await this.initDB();
+    const allFolders = await db.getAll("folders");
+    const allNotes = await db.getAll("notes");
+
+    allFolders.forEach((folder) => {
+        if (folder.parentId === id) {
+            db.delete("folders", folder.id);
+        }
+    });
+    allNotes.forEach((note) => {
+        if (note.folderId === id) {
+            db.delete("notes", note.id);
+        }
+    });
     await db.delete("folders", id);
   }
 
@@ -73,6 +87,11 @@ class DatabaseService {
   async addNote(note: Note): Promise<string> {
     const db = await this.initDB();
     return await db.add("notes", note);
+  }
+
+  async deleteNote(id: string): Promise<void> {
+    const db = await this.initDB();
+    await db.delete("notes", id);
   }
 
   async getNote(id: string): Promise<Note | undefined> {

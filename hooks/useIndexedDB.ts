@@ -64,6 +64,16 @@ export const useIndexedDB = () => {
     }
   }, []);
 
+  const deleteNote = useCallback(async (id: string) => {
+    try {
+      await dbService.deleteNote(id);
+      await loadData();
+    } catch (error) {
+      console.error("Failed to delete note:", error);
+      throw error;
+    }
+  }, []);
+
   return {
     isDBReady,
     folders,
@@ -71,6 +81,7 @@ export const useIndexedDB = () => {
     addFolder,
     deleteFolder,
     addNote,
+    deleteNote,
     refreshData: loadData,
   };
 };
