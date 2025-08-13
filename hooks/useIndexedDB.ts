@@ -64,6 +64,26 @@ export const useIndexedDB = () => {
     }
   }, []);
 
+  const getNote = useCallback(async (id: string) => {
+    try {
+      const note = await dbService.getNote(id);
+      return note;
+    } catch (error) {
+      console.error("Failed to get note:", error);
+      throw error;
+    }
+  }, []);
+
+  const updateNote = useCallback(async (note: Note) => {
+    try {
+      await dbService.updateNote(note);
+      await loadData();
+    } catch (error) {
+      console.error("Failed to update note:", error);
+      throw error;
+    }
+  }, []);
+
   const deleteNote = useCallback(async (id: string) => {
     try {
       await dbService.deleteNote(id);
@@ -81,6 +101,8 @@ export const useIndexedDB = () => {
     addFolder,
     deleteFolder,
     addNote,
+    getNote,
+    updateNote,
     deleteNote,
     refreshData: loadData,
   };

@@ -66,14 +66,14 @@ class DatabaseService {
     const allNotes = await db.getAll("notes");
 
     allFolders.forEach((folder) => {
-        if (folder.parentId === id) {
-            db.delete("folders", folder.id);
-        }
+      if (folder.parentId === id) {
+        db.delete("folders", folder.id);
+      }
     });
     allNotes.forEach((note) => {
-        if (note.folderId === id) {
-            db.delete("notes", note.id);
-        }
+      if (note.folderId === id) {
+        db.delete("notes", note.id);
+      }
     });
     await db.delete("folders", id);
   }
@@ -89,6 +89,11 @@ class DatabaseService {
     return await db.add("notes", note);
   }
 
+  async updateNote(note: Note): Promise<string> {
+    const db = await this.initDB();
+    return await db.put("notes", note);
+  }
+
   async deleteNote(id: string): Promise<void> {
     const db = await this.initDB();
     await db.delete("notes", id);
@@ -98,6 +103,7 @@ class DatabaseService {
     const db = await this.initDB();
     return await db.get("notes", id);
   }
+
 
   async getAllNotes(): Promise<Note[]> {
     const db = await this.initDB();

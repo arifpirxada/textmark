@@ -1,11 +1,16 @@
 import { Note } from "@/types/db"
 import Link from "next/link"
+import { useParams } from "next/navigation";
 import { useEffect, useRef, MouseEvent } from "react";
 
 const NoteLi = ({ note, handleAction }: { note: Note, handleAction: (type: string, event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void }) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
 
+    const params = useParams<{ id: string }>()
+    const selectedId = params.id;
+
+    
     useEffect(() => {
         const linkElement = linkRef.current;
         const tooltip = tooltipRef.current;
@@ -54,7 +59,7 @@ const NoteLi = ({ note, handleAction }: { note: Note, handleAction: (type: strin
                 ref={linkRef}
                 href={`/notes/${note.id}`} 
                 onClick={handleLinkClick}
-                className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className={`${selectedId === note.id ? "bg-gray-700" : ""} flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
             >
                 <svg className="shrink-0 w-3 h-3 mr-1 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />

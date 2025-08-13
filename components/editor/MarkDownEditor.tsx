@@ -5,8 +5,10 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useIndexedDB } from '@/hooks/useIndexedDB';
+import { Note } from '@/types/db';
 
-const MarkdownEditor = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
+const MarkdownEditor = ({ id, toggleSidebar }: { id: string, toggleSidebar: () => void }) => {
+  const [note, setNote] = useState<Note | null>(null);
   const [markdown, setMarkdown] = useState('');
 
   const formatButtons = [
@@ -22,28 +24,31 @@ const MarkdownEditor = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
     setMarkdown(prev => prev + syntax);
   };
 
-  const { isDBReady, folders, notes, addFolder, deleteFolder, addNote, refreshData: loadData } = useIndexedDB();
+  const { isDBReady, getNote, updateNote } = useIndexedDB();
 
   useEffect(() => {
     if (isDBReady) {
-      // addFolder({ id: 'folder-1', name: 'Folder 1', parentId: null, path: 'Folder 1' });
-      // addFolder({ id: 'folder-2', name: 'Folder 2', parentId: null, path: 'Folder 2' });
-      // addFolder({ id: 'folder-2-1', name: 'Folder 2-1', parentId: 'folder-2', path: 'Folder 2/Folder 2-1' });
-      // addFolder({ id: 'folder-2-2', name: 'Folder 2-2', parentId: 'folder-2', path: 'Folder 2/Folder 2-2' });
-      // addFolder({ id: 'folder-3', name: 'Folder 3', parentId: null, path: 'Folder 3' });
-      // addFolder({ id: 'folder-3-1', name: 'Folder 3-1', parentId: 'folder-3', path: 'Folder 3/Folder 3-1' });
-      // addFolder({ id: 'folder-3-2', name: 'Folder 3-2', parentId: 'folder-3', path: 'Folder 3/Folder 3-2' });
-      // addFolder({ id: 'folder-3-3', name: 'Folder 3-3', parentId: 'folder-3', path: 'Folder 3/Folder 3-3' });
-      // addFolder({ id: 'folder-4', name: 'Folder 4', parentId: null, path: 'Folder 4' });
-
-      // addNote({ id: 'note-1', title: 'Note 1', content: 'Content for Note 1', folderId: 'folder-1', tags: ['tag1', 'tag2'] });
-      // addNote({ id: 'note-2', title: 'Note 2', content: 'Content for Note 4', folderId: 'folder-1', tags: ['tag4'] });
-      // addNote({ id: 'note-3', title: 'Note 3', content: 'Content for Note 2', folderId: 'folder-2', tags: ['tag2', 'tag3'] });
-      // addNote({ id: 'note-4', title: 'Note 4', content: 'Content for Note 3', folderId: 'folder-2-1', tags: ['tag1', 'tag3'] });
-
-      loadData();
+      const fetchNote = async () => {
+        const note = await getNote(id);
+        if (note) {
+          setMarkdown(note.content);
+          setNote(note)
+        }
+      };
+      fetchNote();
     }
   }, [isDBReady]);
+
+  useEffect(() => {
+    if (markdown && isDBReady) {
+      const updateNoteContent = async () => {
+        if (note) {
+          await updateNote({ ...note, content: markdown });
+        }
+      };
+      updateNoteContent();
+    }
+  }, [markdown, isDBReady]);
 
   return (
     <div className="h-screen flex flex-col overflow-x-scroll md:overflow-x-auto hide-scrollbar">

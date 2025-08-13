@@ -2,6 +2,7 @@ import { useIndexedDB } from "@/hooks/useIndexedDB";
 import { ReactNode, useEffect } from "react"
 import FolderTree from "./FolderTree";
 import { MouseEvent } from 'react';
+import { redirect } from "next/navigation";
 
 const FolderSidebar = ({ children, sidebarOpen, toggleSidebar }: { children: ReactNode, sidebarOpen: boolean, toggleSidebar: () => void }) => {
 
@@ -74,6 +75,7 @@ const FolderSidebar = ({ children, sidebarOpen, toggleSidebar }: { children: Rea
                     tags: tags ? (tags as string).split(",").map(tag => tag.trim()) : []
                 };
                 addNote(note);
+                redirect(`/note/${note.id}`);
                 break;
             case "delete-note":
                 if (!noteId) return;

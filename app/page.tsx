@@ -1,7 +1,7 @@
 "use client"
-import MarkdownEditor from "@/components/editor/MarkdownEditor";
 import FolderSidebar from "@/components/editor/FolderSidebar";
 import { useEffect, useState } from "react";
+import OpenNote from "@/components/editor/OpenNote";
 
 export default function Home() {
 
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       <FolderSidebar sidebarOpen={ sidebarOpen } toggleSidebar={ toggleSidebar }>
-        <MarkdownEditor toggleSidebar={ toggleSidebar } />
+        <OpenNote toggleSidebar={ toggleSidebar } />
       </FolderSidebar>
     </>
   );
