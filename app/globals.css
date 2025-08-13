@@ -51,3 +51,11 @@ body {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
 }
+
+.default-sidebar ol, .default-sidebar ul {
+  list-style: none;
+}
+
+.markdown-content ol, .markdown-content ul {
+  list-style: auto;
+}

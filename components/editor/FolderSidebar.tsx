@@ -75,7 +75,7 @@ const FolderSidebar = ({ children, sidebarOpen, toggleSidebar }: { children: Rea
                     tags: tags ? (tags as string).split(",").map(tag => tag.trim()) : []
                 };
                 addNote(note);
-                redirect(`/note/${note.id}`);
+                redirect(`/notes/${note.id}`);
                 break;
             case "delete-note":
                 if (!noteId) return;
@@ -89,7 +89,7 @@ const FolderSidebar = ({ children, sidebarOpen, toggleSidebar }: { children: Rea
 
     return (
         <>
-            <aside id="default-sidebar" className={ `fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} ` } aria-label="Sidebar">
+            <aside id="default-sidebar" className={ `default-sidebar fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} ` } aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-[#0c0c0c]">
                     <div data-folder-id={ null } data-folder-path="" className="flex mb-2 text-xs text-white gap-2 justify-start">
                         <button onClick={ (e) => handleAction("add-folder", e) } className="flex gap-1 hover:bg-gray-700 cursor-pointer items-center px-2 py-1 rounded">

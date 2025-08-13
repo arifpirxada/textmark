@@ -67,6 +67,7 @@ const MarkdownEditor = ({ id, toggleSidebar }: { id: string, toggleSidebar: () =
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
           </svg>
         </button>
+        { note && <p className='text-white'>{ note.title }</p> }
         <div className='ml-auto flex gap-2'>
           { formatButtons.map(btn => (
             <button

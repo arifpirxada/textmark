@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const TextMarkHero = () => {
   return (
@@ -31,7 +32,7 @@ const TextMarkHero = () => {
               simplicity of plain text with the power of rich formatting.
             </p>
             
-            <button className="inline-flex cursor-pointer items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-lg transition-colors duration-200 font-medium text-lg group">
+            <Link href="/" className="inline-flex cursor-pointer items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-lg transition-colors duration-200 font-medium text-lg group">
               Start Taking Notes
               <svg 
                 className="w-5 h-5 transform transition-transform group-hover:translate-x-1" 
@@ -46,7 +47,7 @@ const TextMarkHero = () => {
                   d="M17 8l4 4m0 0l-4 4m4-4H3" 
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
