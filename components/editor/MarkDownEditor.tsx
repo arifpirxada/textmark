@@ -12,12 +12,20 @@ const MarkdownEditor = ({ id, toggleSidebar }: { id: string, toggleSidebar: () =
   const [markdown, setMarkdown] = useState('');
 
   const formatButtons = [
-    { name: 'B', syntax: '**Bold**', title: 'Bold' },
-    { name: 'I', syntax: '*Italic*', title: 'Italic' },
-    { name: 'H1', syntax: '# ', title: 'Heading 1' },
-    { name: 'H2', syntax: '## ', title: 'Heading 2' },
+    { name: 'B', syntax: '**Bold**', title: 'Bold (Ctrl+B)' },
+    { name: 'I', syntax: '*Italic*', title: 'Italic (Ctrl+I)' },
+    { name: 'H1', syntax: '\n# ', title: 'Heading 1' },
+    { name: 'H2', syntax: '\n## ', title: 'Heading 2' },
+    { name: 'H3', syntax: '\n### ', title: 'Heading 3' },
+    { name: 'Quote', syntax: '\n> ', title: 'Blockquote' },
+    { name: 'List', syntax: '\n- ', title: 'Bullet List' },
+    { name: 'Numbered', syntax: '\n1. ', title: 'Numbered List' },
     { name: 'Link', syntax: '[Link Text](URL)', title: 'Link' },
-    { name: 'Code', syntax: '`code`', title: 'Inline Code' }
+    { name: 'Image', syntax: '![Alt Text](image-url)', title: 'Image' },
+    { name: 'Code', syntax: '`code`', title: 'Inline Code' },
+    { name: 'Block', syntax: '\n``````\n', title: 'Code Block' },
+    { name: 'Table', syntax: '\n| Header 1 | Header 2 |\n|----------|----------|\n| Cell 1   | Cell 2   |\n', title: 'Table' },
+    { name: 'HR', syntax: '\n---\n', title: 'Horizontal Rule' }
   ];
 
   const insertSyntax = (syntax: string) => {
@@ -83,7 +91,7 @@ const MarkdownEditor = ({ id, toggleSidebar }: { id: string, toggleSidebar: () =
           />
         </div>
 
-        <div className="w-1/2 p-4 overflow-auto text-white">
+        <div className="w-1/2 p-4 overflow-auto text-white markdown-content">
           <ReactMarkdown
             remarkPlugins={ [remarkGfm] }
             components={ {
