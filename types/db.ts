@@ -19,11 +19,16 @@ export interface MyDB extends DBSchema {
   folders: {
     key: string;
     value: Folder;
-    indexes: { 'by-name': string };
+    indexes: { "by-name": string };
   };
   notes: {
     key: string;
     value: Note;
-    indexes: { 'by-title': string };
+    indexes: { "by-title": string };
   };
+}
+
+export interface Data {
+  folders: Folder[];
+  notes: Note[];
 }

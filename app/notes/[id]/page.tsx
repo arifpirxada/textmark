@@ -1,34 +1,14 @@
-"use client"
-import FolderSidebar from '@/components/editor/FolderSidebar'
-import MarkdownEditor from '@/components/editor/MarkdownEditor'
-import { use, useEffect, useState } from 'react';
+import EditorPage from '@/components/editor/EditorPage'
 
-const NotePage = ({
-    params
-}: {
-  params: Promise<{ id: string }>
-}) => {
-    const { id } = use(params)
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+interface NotePageProps {
+    params: { id: string };
+}
 
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-
-        localStorage.setItem("sidebarState", JSON.stringify(!sidebarOpen));
-    }
-
-    useEffect(() => {
-        const sidebarState = localStorage.getItem("sidebarState");
-
-        if (sidebarState && window.innerWidth > 768) {
-            setSidebarOpen(JSON.parse(sidebarState));
-        }
-    }, [])
+const NotePage = ({ params }: NotePageProps) => {
+    const { id } = params;
 
     return (
-        <FolderSidebar sidebarOpen={ sidebarOpen } toggleSidebar={ toggleSidebar }>
-            <MarkdownEditor id={id} toggleSidebar={ toggleSidebar } />
-        </FolderSidebar>
+        <EditorPage id={ id } />
     )
 }
 

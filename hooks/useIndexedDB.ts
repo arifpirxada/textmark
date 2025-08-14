@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { dbService } from "../services/db";
-import { Folder, Note } from "../types/db";
+import { Data, Folder, Note } from "../types/db";
 
 export const useIndexedDB = () => {
   const [isDBReady, setIsDBReady] = useState(false);
@@ -94,6 +94,41 @@ export const useIndexedDB = () => {
     }
   }, []);
 
+  const exportData = useCallback(async () => {
+    try {
+      const data = await dbService.export();
+      const json = JSON.stringify(data);
+      console.log(data)
+      // Download file
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+
+      link.download = "textmark-backup.json";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to export data:", error);
+      throw error;
+    }
+  }, []);
+
+  const importData = useCallback(async (data: Data) => {
+    try {
+      data.folders.forEach(folder => dbService.addFolder(folder));
+      data.notes.forEach(note => dbService.addNote(note));
+      await loadData();
+    } catch (error) {
+      console.error("Failed to export data:", error);
+      throw error;
+    }
+  }, []);
+
   return {
     isDBReady,
     folders,
@@ -105,5 +140,7 @@ export const useIndexedDB = () => {
     updateNote,
     deleteNote,
     refreshData: loadData,
+    exportData,
+    importData
   };
 };

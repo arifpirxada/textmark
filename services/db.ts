@@ -24,7 +24,7 @@ class DatabaseService {
           const folderStore = db.createObjectStore("folders", {
             keyPath: "id",
           });
-          folderStore.createIndex("by-name", "name");
+          folderStore.createIndex("by-name", "name", { unique: true });
         }
 
         if (!db.objectStoreNames.contains("notes")) {
@@ -104,7 +104,6 @@ class DatabaseService {
     return await db.get("notes", id);
   }
 
-
   async getAllNotes(): Promise<Note[]> {
     const db = await this.initDB();
     return await db.getAll("notes");
@@ -138,6 +137,13 @@ class DatabaseService {
       this.db = null;
     }
     await deleteDB(this.dbName);
+  }
+
+  async export() {
+    const db = await this.initDB();
+    const folders = await db.getAll("folders");
+    const notes = await db.getAll("notes");
+    return { folders, notes };
   }
 }
 
